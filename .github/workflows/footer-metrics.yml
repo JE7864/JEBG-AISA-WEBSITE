@@ -1,0 +1,17 @@
+name: Footer metrics checks
+on:
+  push:
+    branches: [main]
+    paths: ['index.html', 'css/**', 'js/**', 'tests/footer-metrics.test.cjs', '.github/workflows/footer-metrics.yml']
+  pull_request:
+    paths: ['index.html', 'css/**', 'js/**', 'tests/footer-metrics.test.cjs', '.github/workflows/footer-metrics.yml']
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Footer display, event tracking and privacy checks
+        run: node tests/footer-metrics.test.cjs
